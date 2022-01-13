@@ -17,7 +17,7 @@ const CheckoutForm = ({ appointment }) => {
     const [success, setSuccess] = useState("");
     const [processing, setProcessing] = useState(false);
     useEffect(() => {
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://secret-temple-89765.herokuapp.com/create-payment-intent", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -79,7 +79,7 @@ const CheckoutForm = ({ appointment }) => {
                 last4: paymentMethod.card.last4,
                 transaction: paymentIntent.client_secret.slice("_secret")[0]
             };
-            const url = `http://localhost:5000/appointments/${_id}`;
+            const url = `https://secret-temple-89765.herokuapp.com/appointments/${_id}`;
             fetch(url, {
                 method: "PUT",
                 headers: {
