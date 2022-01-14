@@ -40,13 +40,12 @@ const useFirebase = () => {
 
                 });
 
-                history.push('/');
+                history('/');
 
 
 
             })
             .catch((error) => {
-                const errorCode = error.code;
                 setAuthError(error.message);
                 // ..
             })
@@ -60,8 +59,10 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
-                saveUser(user.email, user.name, "PUT");
+                saveUser(user.email, user.displayName, "PUT");
                 setAuthError("");
+                const destination = location?.state?.from || "/";
+                history(destination);
             }).catch((error) => {
 
                 setAuthError(error.message);
@@ -82,11 +83,10 @@ const useFirebase = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const destination = location?.start?.from || "/";
-                history.replace(destination);
+                history(destination);
                 setAuthError("");
             })
             .catch((error) => {
-                const errorCode = error.code;
                 setAuthError(error.message);
             })
             .finally(() => setIsLoading(false));
@@ -111,11 +111,11 @@ const useFirebase = () => {
             setIsLoading(false);
         });
         return () => unsubscribe;
-    }, [])
+    }, []);
 
 
     useEffect(() => {
-        fetch(`https://secret-temple-89765.herokuapp.com/users/${user.email}`)
+        fetch(`http://localhost:5000/users/${user.email}`)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))
     }, [user.email])
@@ -136,7 +136,7 @@ const useFirebase = () => {
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
-        fetch("https://secret-temple-89765.herokuapp.com/users", {
+        fetch("http://localhost:5000/users", {
             method: method,
             headers: {
                 "content-type": "application/json"

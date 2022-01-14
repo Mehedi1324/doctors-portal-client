@@ -7,9 +7,6 @@ import Register from './Pages/Login/Register/Register';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
 import PrivateRoute from './Pages/Login/Login/PrivateRoute/PrivateRoute';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
-import AdminRoute from './Pages/Login/AdminRoute/AdminRoute';
-import MakeAdmin from './Pages/Dashboard/Dashboard/MakeAdmin/MakeAdmin';
-import AddDoctor from './Pages/Dashboard/Dashboard/AddDoctor/AddDoctor';
 
 function App() {
   return (
@@ -25,6 +22,7 @@ function App() {
               <Route path="appointment/" element={<Appointment />} />
               <Route path="dashboard/*" element={<Dashboard />} />
             </Route>
+
 
 
           </Routes>
